@@ -69,12 +69,21 @@
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hmm-kb-XBj">
+                                                    <rect key="frame" x="15" y="3" width="38" height="38"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="hmm-kb-XBj" secondAttribute="height" multiplier="1:1" id="8ew-cQ-pGV"/>
+                                                        <constraint firstAttribute="width" constant="38" id="uoK-ak-sTc"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="hmm-kb-XBj" firstAttribute="centerY" secondItem="GBq-BC-eoa" secondAttribute="centerY" id="0hc-jD-9bA"/>
                                                 <constraint firstItem="Mof-kg-dHH" firstAttribute="centerY" secondItem="GBq-BC-eoa" secondAttribute="centerY" id="7ja-Jv-gg8"/>
                                                 <constraint firstItem="fxA-Sy-xY6" firstAttribute="centerY" secondItem="GBq-BC-eoa" secondAttribute="centerY" id="J7V-zo-lyw"/>
                                                 <constraint firstAttribute="trailing" secondItem="fxA-Sy-xY6" secondAttribute="trailing" priority="750" constant="20" id="PCL-mu-bbI"/>
                                                 <constraint firstItem="Mof-kg-dHH" firstAttribute="leading" secondItem="GBq-BC-eoa" secondAttribute="leading" constant="62" id="Zfw-Di-kSd"/>
+                                                <constraint firstItem="hmm-kb-XBj" firstAttribute="leading" secondItem="GBq-BC-eoa" secondAttribute="leading" constant="15" id="g3E-uE-Fxa"/>
                                                 <constraint firstItem="fxA-Sy-xY6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Mof-kg-dHH" secondAttribute="trailing" priority="750" constant="8" id="kaT-ry-lzx"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -82,6 +91,7 @@
                                         <connections>
                                             <outlet property="customDetailTextLabel" destination="fxA-Sy-xY6" id="51C-F1-oXe"/>
                                             <outlet property="customDetailTextLabelConstraint" destination="PCL-mu-bbI" id="bzI-Go-BsT"/>
+                                            <outlet property="customImageView" destination="hmm-kb-XBj" id="yl4-JV-kzO"/>
                                             <outlet property="customTextLabel" destination="Mof-kg-dHH" id="K5s-qV-UPt"/>
                                         </connections>
                                     </tableViewCell>

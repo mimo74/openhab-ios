@@ -7,6 +7,7 @@
 
 import Alamofire
 import os.log
+import SVGKit
 
 // https://medium.com/@AladinWay/write-a-networking-layer-in-swift-4-using-alamofire-5-and-codable-part-2-perform-request-and-b5c7ee2e012d
 // Transition from AFNetworking to Alamofire 5.0
@@ -14,6 +15,10 @@ import os.log
 // serverTrustPolicyManager --> serverTrustManager
 // ServerTrustPolicyManager --> ServerTrustManager
 class NetworkConnection {
+
+    enum ImageManagerError: Error {
+        case invalidResponse
+    }
 
     static var shared: NetworkConnection!
 
@@ -85,5 +90,31 @@ class NetworkConnection {
     func assignDelegates(serverDelegate: ServerCertificateManagerDelegate?, clientDelegate: ClientCertificateManagerDelegate) {
         serverCertificateManager.delegate = serverDelegate
         clientCertificateManager.delegate = clientDelegate
+    }
+
+    @discardableResult
+    func imageTask(for imageRequest: URLRequest, iconType: IconType, completion: @escaping (Swift.Result<UIImage, Error>) -> Void) -> Alamofire.Request {
+
+        let imageOperation = NetworkConnection.shared.manager.request(imageRequest)
+            .validate(statusCode: 200..<300)
+            .responseData { (response) in
+                switch response.result {
+                case .success:
+                    if let data = response.data {
+                        var image = UIImage()
+                        switch iconType {
+                        case .png :
+                            image = UIImage(data: data) ?? UIImage()
+                        case .svg:
+                            image = SVGKImage(data: data).uiImage
+                        }
+                        completion(.success(image))
+                    }
+                case .failure:
+                     completion(.failure(ImageManagerError.invalidResponse))
+                }
+            }
+        imageOperation.resume()
+        return imageOperation
     }
 }

@@ -995,26 +995,11 @@ extension OpenHABViewController: UITableViewDelegate, UITableViewDataSource {
                                      icon: widget?.icon,
                                      value: widget?.item?.state ?? "",
                                      iconType: iconType).url {
-                var imageRequest = URLRequest(url: urlc)
-                imageRequest.timeoutInterval = 10.0
-                let imageOperation = NetworkConnection.shared.manager.request(imageRequest)
-                    .validate(statusCode: 200..<300)
-                    .responseData { (response) in
-                        switch response.result {
-                        case .success:
-                            if let data = response.data {
-                                switch self.iconType {
-                                case .png :
-                                    cell.imageView?.image = UIImage(data: data)
-                                case .svg:
-                                    cell.imageView?.image = SVGKImage(data: data).uiImage
-                                }
-                            }
-                        case .failure:
-                            cell.imageView?.image = UIImage(named: "blankicon.png")
-                        }
-                    }
-                imageOperation.resume()
+                if let cell = cell as? GenericUITableViewCell {
+                    var imageRequest = URLRequest(url: urlc)
+                    imageRequest.timeoutInterval = 10.0
+                    cell.setIcon(to: imageRequest, iconType: self.iconType)
+                }
             }
         }
 

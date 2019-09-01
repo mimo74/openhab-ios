@@ -8,6 +8,8 @@
 //  Converted to Swift 4 by Tim Müller-Seydlitz and Swiftify on 06/01/18
 //
 
+import Alamofire
+import os.log
 import UIKit
 
 protocol GenericCellCacheProtocol: UITableViewCell {
@@ -17,6 +19,8 @@ protocol GenericCellCacheProtocol: UITableViewCell {
 class GenericUITableViewCell: UITableViewCell {
 
     private var _widget: OpenHABWidget!
+    private var icon: UIImage?
+    private weak var imageOperation: Alamofire.Request?
     var widget: OpenHABWidget! {
         get {
             return _widget
@@ -54,7 +58,7 @@ class GenericUITableViewCell: UITableViewCell {
     @IBOutlet weak var customTextLabel: UILabel!
     @IBOutlet weak var customDetailTextLabel: UILabel!
     @IBOutlet weak var customDetailTextLabelConstraint: NSLayoutConstraint!
-
+    @IBOutlet weak var customImageView: UIImageView!
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         initialize()
@@ -81,6 +85,9 @@ class GenericUITableViewCell: UITableViewCell {
         customTextLabel?.text = widget?.labelText
         customDetailTextLabel?.text = widget?.labelValue ?? ""
         customDetailTextLabel?.sizeToFit()
+        customImageView?.image = icon
+//        self?.imageView?.image = image
+        //        customImageView?.image = icon
 
         if customDetailTextLabel != nil, customDetailTextLabelConstraint != nil {
             if accessoryType == .none {
@@ -96,6 +103,30 @@ class GenericUITableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageOperation?.cancel()
+        customImageView?.image = nil
+        imageView?.image = nil
+        icon = nil
+    }
+
+    func setIcon(to urlRequest: URLRequest, iconType: IconType) {
+        imageOperation = NetworkConnection.shared.imageTask(for: urlRequest, iconType: iconType) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                os_log("Icon not found %{PUBLIC}@", log: .viewCycle, type: .info, error.localizedDescription)
+//                self?.icon = UIImage(named: "blankicon.png")
+                self?.customImageView?.image = UIImage(named: "blankicon.png")
+            case .success(let image):
+                self?.icon = image
+                os_log("Icon found", log: .viewCycle, type: .info)
+                self?.customImageView?.image = image
+//                self?.imageView?.image = image
+            }
+        }
     }
 
 }
