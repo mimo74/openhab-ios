@@ -6,6 +6,7 @@
 //  Copyright (c) 2019 David O'Neill. All rights reserved.
 
 import Alamofire
+import AlamofireImage
 import os.log
 
 // https://medium.com/@AladinWay/write-a-networking-layer-in-swift-4-using-alamofire-5-and-codable-part-2-perform-request-and-b5c7ee2e012d
@@ -16,6 +17,8 @@ import os.log
 class NetworkConnection {
 
     static var shared: NetworkConnection!
+
+    static var sharedImages: ImageDownloader!
 
     var clientCertificateManager = ClientCertificateManager()
     var serverCertificateManager: ServerCertificateManager!
@@ -76,6 +79,8 @@ class NetworkConnection {
             }
             return (disposition, credential)
         }
+
+        NetworkConnection.sharedImages = ImageDownloader.init(sessionManager: manager)
     }
 
     class func initialize(ignoreSSL: Bool) {

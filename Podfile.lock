@@ -1,5 +1,7 @@
 PODS:
   - Alamofire (4.8.2)
+  - AlamofireImage (3.5.2):
+    - Alamofire (~> 4.8)
   - CocoaLumberjack (3.5.3):
     - CocoaLumberjack/Core (= 3.5.3)
   - CocoaLumberjack/Core (3.5.3)
@@ -80,6 +82,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.0)
+  - AlamofireImage (~> 3.5)
   - Crashlytics (~> 3.9.3)
   - DynamicButton (~> 6.2)
   - Fabric (~> 1.7.2)
@@ -93,6 +96,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - AlamofireImage
     - CocoaLumberjack
     - Crashlytics
     - DynamicButton
@@ -116,6 +120,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  AlamofireImage: 63cfe3baf1370be6c498149687cf6db3e3b00999
   CocoaLumberjack: 2f44e60eb91c176d471fdba43b9e3eae6a721947
   Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
   DynamicButton: 99858ce823ceed7263a4eed43bd3870e72723cb2
@@ -137,6 +142,6 @@ SPEC CHECKSUMS:
   SVGKit: 652cdf7bef8bec8564d04a8511d3ab50c7595fac
   SwiftMessages: a952f7a9103d9aeab93730a2861d2d8fcdd8758f
 
-PODFILE CHECKSUM: 5b81b5b327175f3856199ad9c1a26fff7e7d4131
+PODFILE CHECKSUM: fda7076cbac791c64917d2b372193bc9ce2fcc7c
 
 COCOAPODS: 1.7.1

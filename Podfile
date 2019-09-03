@@ -5,6 +5,7 @@ use_frameworks!
 
 target 'openHAB' do
     pod 'SVGKit'
+    pod 'AlamofireImage', '~> 3.5'
     #pod 'SDWebImage', '~> 5.0' , :modular_headers => true
     pod 'Firebase/Core'
     pod 'Fabric', '~> 1.7.2'
